@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Verification Docs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/eva-icons"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="content.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155'
+                        },
+                        accent: {
+                            500: '#3b82f6',
+                            600: '#2563eb'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark-900 text-gray-200 antialiased" x-data="{ lang: 'id', t: translations.id }"
+    x-init="$watch('lang', val => t = translations[val])">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <i data-eva="cube-outline" class="fill-accent-500"></i>
+                    <span class="font-bold text-xl tracking-tight text-white" x-text="t.nav.title"></span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex space-x-6 text-sm font-medium">
+                        <a href="#veteran" class="hover:text-accent-500 transition" x-text="t.nav.veteran"></a>
+                        <a href="#gemini" class="hover:text-accent-500 transition" x-text="t.nav.gemini"></a>
+                        <a href="#k12" class="hover:text-accent-500 transition" x-text="t.nav.k12"></a>
+                        <a href="#support" class="hover:text-accent-500 transition" x-text="t.nav.support"></a>
+                    </div>
+                    <!-- Language Toggle -->
+                    <button @click="lang = lang === 'en' ? 'id' : 'en'"
+                        class="bg-dark-800 hover:bg-dark-700 text-xs font-bold py-1 px-3 rounded-full border border-gray-700 transition flex items-center gap-1">
+                        <i data-eva="globe-2-outline" class="w-4 h-4"></i>
+                        <span x-text="lang.toUpperCase()"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 px-4 text-center max-w-4xl mx-auto fade-in">
+        <div class="inline-flex items-center justify-center p-3 mb-6 bg-accent-500/10 rounded-full">
+            <i data-eva="flash-outline" class="fill-accent-500 w-8 h-8"></i>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight" x-html="t.hero.title"></h1>
+        <p class="text-lg md:text-xl text-gray-400 leading-relaxed" x-text="t.hero.subtitle"></p>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 space-y-24 pb-32">
+
+        <!-- Veteran Section -->
+        <section id="veteran" class="scroll-mt-24">
+            <div class="bg-gradient-to-br from-green-900/20 to-dark-800 rounded-2xl p-8 border border-gray-700">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i data-eva="shield-outline" class="fill-green-500"></i>
+                    <span x-text="t.veteran.title"></span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <template x-for="mode in t.veteran.modes">
+                        <div class="bg-dark-900/50 p-4 rounded-xl">
+                            <h4 class="font-bold text-white" x-text="mode.name"></h4>
+                            <p class="text-sm text-gray-400 mt-1" x-text="mode.details"></p>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="bg-dark-900 rounded-xl p-5 border border-gray-700">
+                    <p class="text-gray-300 leading-relaxed" x-html="t.veteran.usage"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gemini Section -->
+        <section id="gemini" class="scroll-mt-24">
+            <div
+                class="bg-dark-800 rounded-2xl p-8 border border-gray-700 shadow-xl relative overflow-hidden group hover:border-accent-500/50 transition duration-300">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition">
+                    <i data-eva="google-outline" class="w-32 h-32 fill-white"></i>
+                </div>
+
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i data-eva="google" class="fill-red-400"></i>
+                    <span x-text="t.gemini.title"></span>
+                </h2>
+
+                <div class="space-y-4">
+                    <template x-for="(step, index) in t.gemini.steps" :key="index">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-dark-700 rounded-full flex items-center justify-center text-sm font-bold text-accent-500"
+                                x-text="index + 1"></div>
+                            <p class="text-gray-300 leading-7 pt-1" x-html="step"></p>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="mt-8 bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+                    <h3 class="font-bold text-red-400 mb-2 flex items-center gap-2">
+                        <i data-eva="alert-triangle-outline"></i>
+                        <span x-text="t.gemini.troubleshooting.title"></span>
+                    </h3>
+                    <p class="text-sm text-gray-300" x-html="t.gemini.troubleshooting.fraud"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- K12 Section -->
+        <section id="k12" class="scroll-mt-24">
+            <div
+                class="bg-dark-800 rounded-2xl p-8 border border-gray-700 shadow-xl relative overflow-hidden group hover:border-accent-500/50 transition duration-300">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition">
+                    <i data-eva="book-open-outline" class="w-32 h-32 fill-white"></i>
+                </div>
+
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i data-eva="book-open" class="fill-blue-400"></i>
+                    <span x-text="t.k12.title"></span>
+                </h2>
+
+                <div class="space-y-4">
+                    <template x-for="(step, index) in t.k12.steps" :key="index">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-dark-700 rounded-full flex items-center justify-center text-sm font-bold text-accent-500"
+                                x-text="index + 1"></div>
+                            <p class="text-gray-300 leading-7 pt-1" x-html="step"></p>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="mt-8 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+                    <h3 class="font-bold text-blue-400 mb-2 flex items-center gap-2">
+                        <i data-eva="alert-triangle-outline"></i>
+                        <span x-text="t.k12.troubleshooting.title"></span>
+                    </h3>
+                    <p class="text-sm text-gray-300" x-html="t.k12.troubleshooting.fraud"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="scroll-mt-24">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <i data-eva="people" class="fill-accent-500"></i>
+                <span x-text="t.support.title"></span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <template x-for="item in t.support.items">
+                    <a :href="item.link" target="_blank"
+                        class="block bg-dark-800 p-6 rounded-xl border border-gray-700 hover:border-accent-500/50 hover:bg-dark-750 transition group">
+                        <div class="flex items-center justify-between mb-4">
+                            <i :data-eva="item.icon"
+                                class="fill-gray-400 group-hover:fill-accent-500 transition w-8 h-8"></i>
+                            <i data-eva="external-link-outline"
+                                class="fill-gray-600 group-hover:fill-white transition"></i>
+                        </div>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1" x-text="item.label">
+                        </p>
+                        <h3 class="text-lg font-bold text-white mb-1" x-text="item.value"></h3>
+                        <p class="text-sm text-accent-400" x-text="item.sub"></p>
+                    </a>
+                </template>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <footer class="border-t border-gray-800 bg-dark-900 mt-auto py-10 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 Verification Bot Documentation. All rights reserved.</p>
+        <div class="mt-2 flex justify-center gap-4">
+            <i data-eva="github-outline" class="fill-gray-500 hover:fill-white transition cursor-pointer"></i>
+            <i data-eva="twitter-outline" class="fill-gray-500 hover:fill-white transition cursor-pointer"></i>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            eva.replace();
+        });
+    </script>
+</body>
+
+</html>

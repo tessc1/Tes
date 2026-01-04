@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHEER | System Manual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --void-black: #050505;
+            --terminal-green: #0aff00;
+            --alert-red: #ff2a2a;
+            --warning-yellow: #ffcc00;
+        }
+
+        body {
+            background-color: var(--void-black);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0f1e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 4px;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(10, 15, 30, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        /* Neon Glows */
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+        }
+
+        .neon-button {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-button:hover {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+            text-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Code Block Styling */
+        .code-block {
+            background: #0a0f1e;
+            border-left: 3px solid var(--neon-cyan);
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #a5b3ce;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .command {
+            color: var(--terminal-green);
+        }
+
+        .param {
+            color: var(--neon-pink);
+        }
+
+        /* Page Transition */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-cyan-500 selection:text-black fade-in">
+
+    <!-- WebGL Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 border-b border-white/10 glass-panel">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="index.html"
+                        class="text-2xl font-orbitron font-bold tracking-widest text-white hover:text-cyan-400 transition-colors">SHEER<span
+                            class="text-cyan-400">.BOT</span></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html"
+                            class="hover:text-cyan-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">HOME</a>
+                        <a href="https://t.me/Tes_verif_vetranBot" target="_blank"
+                            class="neon-button px-6 py-2 rounded-none font-bold tracking-wider">LAUNCH TERMINAL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-32 pb-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <div class="inline-block border border-cyan-500/30 bg-cyan-500/10 px-4 py-1 rounded-full mb-4">
+                <span class="text-cyan-400 text-xs tracking-[0.2em] uppercase">Documentation v2.0</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-4 font-orbitron">SYSTEM <span
+                    class="text-cyan-400">MANUAL</span></h1>
+            <p class="text-gray-400 text-lg">Operational protocols and error resolution for the Sheer Verification Unit.
+            </p>
+        </div>
+
+        <!-- Usage Guide -->
+        <section class="mb-20">
+            <h2 class="text-2xl font-bold text-white mb-8 font-orbitron flex items-center">
+                <span class="text-cyan-400 mr-4">01.</span> OPERATIONAL PROTOCOL
+            </h2>
+
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="glass-panel p-8 rounded-xl border-l-4 border-cyan-400">
+                    <h3 class="text-xl font-bold text-white mb-2">1. Initialize Connection</h3>
+                    <p class="text-gray-400 mb-4">Start the bot to register your user ID in the database.</p>
+                    <div class="code-block">
+                        <span class="command">/start</span>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-panel p-8 rounded-xl border-l-4 border-cyan-400">
+                    <h3 class="text-xl font-bold text-white mb-2">2. Request Verification</h3>
+                    <p class="text-gray-400 mb-4">Initiate the verification sequence. The system will check your credits
+                        and queue position.</p>
+                    <div class="code-block">
+                        <span class="command">/vgpt</span>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-panel p-8 rounded-xl border-l-4 border-cyan-400">
+                    <h3 class="text-xl font-bold text-white mb-2">3. Token Injection</h3>
+                    <p class="text-gray-400 mb-4">The bot will request your ChatGPT session token. You must extract this
+                        from your browser.</p>
+                    <ol class="list-decimal list-inside text-gray-400 space-y-2 ml-2 mb-4">
+                        <li>Log in to <a href="https://chatgpt.com" target="_blank"
+                                class="text-cyan-400 hover:underline">chatgpt.com</a></li>
+                        <li>Navigate to <a href="https://chatgpt.com/api/auth/session" target="_blank"
+                                class="text-cyan-400 hover:underline">https://chatgpt.com/api/auth/session</a></li>
+                        <li>Copy the <span class="text-white">entire JSON text</span> shown on screen.</li>
+                        <li>Paste it directly into the bot chat.</li>
+                    </ol>
+                    <div class="code-block">
+                        <span class="text-gray-500">// Example Token Format</span><br>
+                        {"user":{"id":"...","name":"...","email":"..."},"expires":"...","accessToken":"<span
+                            class="text-cyan-400">eyJhbGciOiJSUzI1NiI...</span>"}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Codes -->
+        <section>
+            <h2 class="text-2xl font-bold text-white mb-8 font-orbitron flex items-center">
+                <span class="text-pink-500 mr-4">02.</span> ERROR RESOLUTION
+            </h2>
+
+            <div class="grid gap-6">
+                <!-- Error 1 -->
+                <div class="glass-panel p-6 rounded-lg border-l-4 border-red-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-red-400">❌ Insufficient Credits</h3>
+                        <span class="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">PAYMENT_REQUIRED</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Your account lacks the required credits to perform
+                        verification.</p>
+                    <div class="bg-black/50 p-3 rounded text-xs font-mono text-gray-400">
+                        <span class="text-green-400">SOLUTION:</span> Use <span class="text-white">/topup</span> to
+                        purchase credits or <span class="text-white">/refer</span> to earn free credits.
+                    </div>
+                </div>
+
+                <!-- Error 2 -->
+                <div class="glass-panel p-6 rounded-lg border-l-4 border-yellow-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-yellow-400">⏳ Agents Busy / Queue Full</h3>
+                        <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">RESOURCE_LIMIT</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">All verification nodes are currently occupied.</p>
+                    <div class="bg-black/50 p-3 rounded text-xs font-mono text-gray-400">
+                        <span class="text-green-400">SOLUTION:</span> You have been added to the queue. Wait for the
+                        notification. VIP users bypass this queue.
+                    </div>
+                </div>
+
+                <!-- Error 3 -->
+                <div class="glass-panel p-6 rounded-lg border-l-4 border-purple-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-purple-400">🔧 Maintenance Mode</h3>
+                        <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">SYSTEM_LOCKED</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">The system is undergoing upgrades.</p>
+                    <div class="bg-black/50 p-3 rounded text-xs font-mono text-gray-400">
+                        <span class="text-green-400">SOLUTION:</span> Check the <a href="https://t.me/vgptplusbot"
+                            class="text-cyan-400 underline">News Channel</a> for ETA.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-black py-8 text-center">
+        <p class="text-gray-500 text-sm">© 2025 Sheer Technologies. <a href="index.html"
+                class="text-cyan-400 hover:underline">Return to Home</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simplified WebGL-ish Canvas Animation
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                initParticles();
+            }
+
+            function initParticles() {
+                particles = [];
+                const count = Math.min(width * 0.05, 50);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.2,
+                        vy: (Math.random() - 0.5) * 0.2,
+                        size: Math.random() * 150 + 50,
+                        color: i % 2 === 0 ? 'rgba(0, 243, 255, 0.03)' : 'rgba(5, 5, 20, 0.6)'
+                    });
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, '#050505');
+                gradient.addColorStop(1, '#0a0f1e');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < -p.size) p.x = width + p.size;
+                    if (p.x > width + p.size) p.x = -p.size;
+                    if (p.y < -p.size) p.y = height + p.size;
+                    if (p.y > height + p.size) p.y = -p.size;
+
+                    const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                    g.addColorStop(0, p.color);
+                    g.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = g;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            animate();
+        });
+    </script>
+</body>
+
+</html>
